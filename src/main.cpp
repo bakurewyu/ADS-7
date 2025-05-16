@@ -39,7 +39,8 @@ int main() {
             int steps;
             int64_t micros;
             testTrain(n, mode, steps, micros);
-            std::cout << n << "," << mode << "," << steps << "," << micros << std::endl;
+            std::cout << n << "," << mode << "," <<
+                steps << "," << micros << std::endl;
         }
     }
 
