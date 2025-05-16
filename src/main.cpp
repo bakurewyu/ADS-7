@@ -7,17 +7,16 @@
 
 #include "train.h"
 
-void testTrain(int n, int mode, int& steps, long long& micros) {
+void testTrain(int n, int mode, int& steps, int64_t& micros) {
     Train train;
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, 1);
 
     for (int i = 0; i < n; ++i) {
-        bool light;
-        if (mode == 0) light = false; // все выключены
-        else if (mode == 1) light = true; // все включены
-        else light = dis(gen); // случайно!!!!
+        bool light = false;
+        if (mode == 1) light = true;
+        else if (mode == 2) light = dis(gen);
         train.addCar(light);
     }
 
@@ -25,12 +24,15 @@ void testTrain(int n, int mode, int& steps, long long& micros) {
     int len = train.getLength();
     auto end = std::chrono::high_resolution_clock::now();
 
+    auto duration = std::chrono::duration_cast<
+        std::chrono::microseconds>(end - start);
+    micros = duration.count();
     steps = train.getOpCount();
-    micros = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 }
 
 int main() {
-    std::cout << "Длина,Режим,Шаги,Время(микросекунда)" << std::endl;
+    std::cout << "Длина,Режим,Шаги,Время(микросекунда)" <<
+        std::endl;
 
     for (int n = 10; n <= 100; n += 10) {
         for (int mode = 0; mode <= 2; ++mode) {
