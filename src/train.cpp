@@ -54,7 +54,7 @@ int Train::getLength() {
             current = current->next;
             countOp++;
             count = 1;
-        } else { 
+        } else {
             current = current->next;
             countOp++;
             count++;
