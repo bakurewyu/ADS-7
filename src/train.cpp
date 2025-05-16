@@ -34,22 +34,37 @@ void Train::addCar(bool light) {
 }
 
 int Train::getLength() {
-    if (!first) throw std::logic_error("Поезд то пустой блин!");
+  Car* start = first;
+  Car* current = start;
 
-    Car* current = first;
-    int steps = 1;
+  if (!current->light) {
     current->light = true;
-
-    current = current->next;
     countOp++;
+  }
+  int count = 1;
+  current = current->next;
+  countOp++;
 
-    while (!current->light) {
+  while (true) {
+    if (current->light) {
+      current->light = false;
+      countOp++;
+      for (int i = 0; i < count; ++i) {
+        current = current->prev;
         countOp++;
-        steps++;
-        current = current->next;
+      }
+      if (!current->light) {
+        return count;
+      }
+      current = current->next;
+      countOp++;
+      count = 1;
+    } else {
+      current = current->next;
+      countOp++;
+      count++;
     }
-
-    return steps;
+  }
 }
 
 int Train::getOpCount() {
