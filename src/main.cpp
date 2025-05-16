@@ -35,7 +35,7 @@ int main() {
     for (int n = 10; n <= 100; n += 10) {
         for (int mode = 0; mode <= 2; ++mode) {
             int steps;
-            long long micros;
+            int64_t micros;
             testTrain(n, mode, steps, micros);
             std::cout << n << "," << mode << "," << steps << "," << micros << std::endl;
         }
