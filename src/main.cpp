@@ -21,7 +21,7 @@ void testTrain(int n, int mode, int& steps, int64_t& micros) {
     }
 
     auto start = std::chrono::high_resolution_clock::now();
-    int len = train.getLength();
+    [[maybe_unused]] int len = train.getLength();
     auto end = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<
